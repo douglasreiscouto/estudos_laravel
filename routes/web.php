@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/products/{id}', 'ProductController@show')->name('products.show');
+Route::get('/products', 'ProductController@index')->name('products.index');
+
 Route::get('/login', function () {
     return "Login";
 })->name('login');
@@ -41,18 +44,18 @@ Route::get('/login', function () {
 });*/
 
 Route::group([
-    'middleware' => [],
+    'middleware' => ['auth'],
     'prefix' => 'admin',
-    'namespace' => 'Admin',
+    'namespace' => 'Admin'
 ], function () {
-    Route::get('/dashboard', 'TesteController@teste')->name('admin.dashboard');
+    Route::get('/dashboard', 'TesteController@teste')->name('Admin.dashboard');
 
-    Route::get('/financeiro', 'TesteController@teste')->name('admin.fincanceiro');
+    Route::get('/financeiro', 'TesteController@teste')->name('Admin.financeiro');
 
-    Route::get('/produtos', 'TesteController@teste')->name('admin.produtos');
+    Route::get('/produtos', 'TesteController@teste')->name('Admin.produtos');
 
     Route::get('/', function () {
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('Admin.dashboard');
     })->name('home');
 });
 
