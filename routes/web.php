@@ -14,8 +14,19 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//deleta um produto em especifico
+Route::delete('/products/{id}', 'ProductController@detroy')->name('prodts.destroy');
+//altera um produto em especifico
+Route::put('products/{id}', 'ProductController@update')->name('products.update');
+//registra um novo produto
+Route::post('/products/registre', 'ProductController@registre')->name('products.registre');
+//edita um produto em especifico
+Route::get('/products/{id}/edit', 'ProductController@edit')->name('products.edit');
+//exibe o forms para cadastro de um novo produto
+Route::get('/products/create', 'ProductController@create')->name('products.create');
+//exibe um produto em especifico
 Route::get('/products/{id}', 'ProductController@show')->name('products.show');
+//lista todos os produtos
 Route::get('/products', 'ProductController@index')->name('products.index');
 
 Route::get('/login', function () {
