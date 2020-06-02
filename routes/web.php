@@ -1,19 +1,10 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Facade\FlareClient\View;
-use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Routing\Router;
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 //deleta um produto em especifico
 Route::delete('/products/{id}', 'ProductController@detroy')->name('prodts.destroy');
 //altera um produto em especifico
@@ -27,11 +18,8 @@ Route::get('/products/create', 'ProductController@create')->name('products.creat
 //exibe um produto em especifico
 Route::get('/products/{id}', 'ProductController@show')->name('products.show');
 //lista todos os produtos
-Route::get('/products', 'ProductController@index')->name('products.index');
+Route::get('/products', 'ProductController@index')->name('products.index');*/
 
-Route::get('/login', function () {
-    return "Login";
-})->name('login');
 //group para o middleware auth
 /*Route::middleware([])->group(function () {
     //group para prefixo o prefixo admin
@@ -54,16 +42,22 @@ Route::get('/login', function () {
     });
 });*/
 
+Route::resource('products', 'ProductController');
+
+Route::get('/login', function () {
+    return "Login";
+})->name('login');
+
 Route::group([
     'middleware' => ['auth'],
     'prefix' => 'admin',
-    'namespace' => 'Admin'
+    'namespace' => 'admin'
 ], function () {
-    Route::get('/dashboard', 'TesteController@teste')->name('Admin.dashboard');
+    Route::get('/dashboard', 'TesteController@teste')->name('dashboard');
 
-    Route::get('/financeiro', 'TesteController@teste')->name('Admin.financeiro');
+    Route::get('/financeiro', 'TesteController@teste')->name('financeiro');
 
-    Route::get('/produtos', 'TesteController@teste')->name('Admin.produtos');
+    Route::get('/produtos', 'TesteController@teste')->name('produtos');
 
     Route::get('/', function () {
         return redirect()->route('Admin.dashboard');
