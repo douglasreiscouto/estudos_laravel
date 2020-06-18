@@ -1,3 +1,4 @@
+<h1>Página sobre a empresa</h1>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,4 +10,5 @@
 <body>
     A empresa foi criada em 2020.
 </body>
+<h1>Página sobre a empresa</h1>
 </html>

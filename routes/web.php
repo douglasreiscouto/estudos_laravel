@@ -42,8 +42,7 @@ Route::get('/products', 'ProductController@index')->name('products.index');*/
     });
 });*/
 
-Route::resource('products', 'ProductController'); //->middleware('auth');
-
+Route::Resource('products', 'ProductController'); //->middleware('auth');
 Route::get('/login', function () {
     return "Login";
 })->name('login');
