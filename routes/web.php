@@ -42,7 +42,11 @@ Route::get('/products', 'ProductController@index')->name('products.index');*/
     });
 });*/
 
+<<<<<<< HEAD
 Route::Resource('products', 'ProductController'); //->middleware('auth');
+=======
+Route::resource('products', 'ProductController');
+>>>>>>> 8f82874da41063fd8e17c66ea3005fa548d7680c
 
 Route::get('/login', function () {
     return "Login";

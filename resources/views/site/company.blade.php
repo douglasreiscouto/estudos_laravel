@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <h1>Página sobre a empresa</h1>
 =======
 <!DOCTYPE html>
@@ -14,3 +15,6 @@
 </body>
 </html>
 >>>>>>> feature-dependencias
+=======
+<h1>Página sobre a empresa</h1>
+>>>>>>> 8f82874da41063fd8e17c66ea3005fa548d7680c
