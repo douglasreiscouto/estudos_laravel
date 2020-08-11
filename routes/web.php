@@ -4,6 +4,8 @@ use App\Http\Controllers\ProductController;
 use Facade\FlareClient\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
+
+Route::Resource('products', 'ProductController'); //->middleware('auth');
 /*
 //deleta um produto em especifico
 Route::delete('/products/{id}', 'ProductController@detroy')->name('prodts.destroy');
@@ -20,6 +22,9 @@ Route::get('/products/{id}', 'ProductController@show')->name('products.show');
 //lista todos os produtos
 Route::get('/products', 'ProductController@index')->name('products.index');*/
 
+Route::get('/login', function () {
+    return "Login";
+})->name('login');
 //group para o middleware auth
 /*Route::middleware([])->group(function () {
     //group para prefixo o prefixo admin
@@ -41,7 +46,6 @@ Route::get('/products', 'ProductController@index')->name('products.index');*/
         });
     });
 });*/
-
 Route::Resource('products', 'ProductController'); //->middleware('auth');
 Route::get('/login', function () {
     return "Login";
