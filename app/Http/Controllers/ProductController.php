@@ -7,6 +7,20 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    protected $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+
+        //$this->middleware('auth');
+        // $this->middleware('auth')->only([
+        //     'create', 'store'
+        // ]);
+        $this->middleware('auth')->except([
+            'index', 'show'
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +33,10 @@ class ProductController extends Controller
         $teste3 = [1, 2, 3, 4];
         $products = ['Tv', 'Geladeira', 'Forno', 'Sofá'];
         return view('admin.pages.products.index', compact('teste', 'teste2', 'products'));
+        $teste = '<h1>Olá</h1>';
+
+        return view('admin.pages.products.index', compact('teste'));
+      
     }
 
     /**
@@ -67,7 +85,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        return "Detalhe do produto $id";
     }
 
     /**

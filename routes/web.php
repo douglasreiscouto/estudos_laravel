@@ -46,6 +46,10 @@ Route::get('/login', function () {
         });
     });
 });*/
+Route::Resource('products', 'ProductController'); //->middleware('auth');
+Route::get('/login', function () {
+    return "Login";
+})->name('login');
 
 Route::group([
     'middleware' => ['auth'],
@@ -78,7 +82,7 @@ Route::get('redirect3', function () {
 });
 
 Route::get('redirect2', function () {
-    return 'Recebe os redirecionamentos';
+    return 'Recebe os red   irecionamentos';
 });
 //rota com parametro dinamico
 Route::get('/produtos/{idProduct?}', function ($idProduct = '') {
