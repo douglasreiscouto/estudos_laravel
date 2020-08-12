@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateProductRequest;
+use App\Model\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -17,9 +18,9 @@ class ProductController extends Controller
         // $this->middleware('auth')->only([
         //     'create', 'store'
         // ]);
-        $this->middleware('auth')->except([
-            'index', 'show'
-        ]);
+        // $this->middleware('auth')->except([
+        //     'index', 'show'
+        // ]);
     }
     /**
      * Display a listing of the resource.
@@ -28,15 +29,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $teste = 123;
-        $teste2 = 412;
-        $teste3 = [1, 2, 3, 4];
-        $products = ['Tv', 'Geladeira', 'Forno', 'Sofá'];
-        return view('admin.pages.products.index', compact('teste', 'teste2', 'products'));
-        $teste = '<h1>Olá</h1>';
-
-        return view('admin.pages.products.index', compact('teste'));
-      
+        $products = Product::paginate();
+        return view('admin.pages.products.index', [
+            'products' => $products,
+        ]);
     }
 
     /**
