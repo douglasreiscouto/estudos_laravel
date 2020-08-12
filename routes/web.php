@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
 
 Route::Resource('products', 'ProductController'); //->middleware('auth');
+
 /*
 //deleta um produto em especifico
 Route::delete('/products/{id}', 'ProductController@detroy')->name('prodts.destroy');
@@ -46,11 +47,6 @@ Route::get('/login', function () {
         });
     });
 });*/
-Route::Resource('products', 'ProductController'); //->middleware('auth');
-Route::get('/login', function () {
-    return "Login";
-})->name('login');
-
 Route::group([
     'middleware' => ['auth'],
     'prefix' => 'admin',
