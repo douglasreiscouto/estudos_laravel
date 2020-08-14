@@ -53,24 +53,11 @@ class ProductController extends Controller
      */
     public function store(StoreUpdateProductRequest $request)
     {
-        dd('ok');
-        // $request->validate([
-        //     'name' => 'required|min:3|max:255',
-        //     'description' => 'nullable|min:3|max:10000',
-        //     'photo' => 'required|image',
-        // ]);
-        // dd('ok');
-        //dd($request->all()); retorna todas a informacoes do formulario
-        //dd($request->only(['name', 'description'])); retorna somente as informacoes dos campos passado no array
-        //dd($request->name); retorna somente o valor do campo selecinado
-        //dd($request->has('name')); verifica se o campo existe e retorna true ou false para o campo passado no paramentro
-        //dd($request->input('name', 'default')); verifica se o campo existe e retorna o valor caso o mesmo nao tenha cido informado ele retorna o valor default
-        //dd($request->except('_token')); retorna todos os campos exeto o informado
-        if ($request->file('photo')->isValid()) {
-            //dd($request->file('photo')->store('products')); faz o upload de arquivos
-            $nameFile = $request->name . '.' . $request->photo->extension();
-            dd($request->file('photo')->storeAs('products', $nameFile));
-        }
+        $data = $request->all('name', 'description', 'price');
+
+        $product = Product::create($data);
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -81,7 +68,14 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return "Detalhe do produto $id";
+        //$product = Product::where('id', $id)->first(); retorna uma instancia do item atraves do id
+        //recupera um item atraves do seu produto, se nao encontra retorna null
+        if (!$product = Product::find($id))
+            return redirect()->back();
+
+        return view('admin.pages.products.show', [
+            'product' => $product
+        ]);
     }
 
     /**
