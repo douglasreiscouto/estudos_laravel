@@ -1,9 +1,9 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Recursos humanos')
+@section('title', 'Lista de produtos')
 
 @section('content')
-    <h1>Exibindo os produtos</h1>
+    <h1>Lista de produtos</h1>
     <a href="{{route('products.create')}}" class="btn btn-primary">Cadastrar</a>
     
     <table class="table table-striped">
@@ -20,7 +20,7 @@
                     <td>{{$product->name}}</td>
                     <td>{{$product->price}}</td>
                     <td>
-                        <a href="">Detalhes</a>
+                        <a href="{{route('products.show', $product->id)}}">Detalhes</a>
                     </td>
                 </tr>
             @endforeach
