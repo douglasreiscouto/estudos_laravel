@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     protected $request;
+    private $repository;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, Product $product)
     {
         $this->request = $request;
+        $this->repository = $product;
 
         //$this->middleware('auth');
         // $this->middleware('auth')->only([
@@ -55,7 +57,7 @@ class ProductController extends Controller
     {
         $data = $request->all('name', 'description', 'price');
 
-        $product = Product::create($data);
+        $this->repository->created($data);
 
         return redirect()->route('products.index');
     }
@@ -70,7 +72,7 @@ class ProductController extends Controller
     {
         //$product = Product::where('id', $id)->first(); retorna uma instancia do item atraves do id
         //recupera um item atraves do seu produto, se nao encontra retorna null
-        if (!$product = Product::find($id))
+        if (!$product = $this->repository->find($id))
             return redirect()->back();
 
         return view('admin.pages.products.show', [
@@ -86,19 +88,26 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.pages.products.edit', compact('id'));
+        if (!$product = $this->repository->find($id))
+            return redirect()->back();
+
+        return view('admin.pages.products.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StoreUpdateProductRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdateProductRequest $request, $id)
     {
-        dd("Editando o produto {$id}");
+        if (!$product = $this->repository->find($id))
+            return redirect()->back();
+
+        $product->update($request->all());
+        return redirect()->route('products.index');
     }
 
     /**
@@ -109,6 +118,25 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = $this->repository->where('id', $id)->first();
+        if (!$product)
+            return redirect()->back();
+
+        $product->delete();
+
+        return redirect()->route('products.index');
+    }
+    /**
+     * Search Products
+     */
+    public function search(Request $request)
+    {
+        $filters = $request->except('_token');
+        $products = $this->repository->search($request->filter);
+
+        return view('admin.pages.products.index', [
+            'products' => $products,
+            'filters' => $filters,
+        ]);
     }
 }

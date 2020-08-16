@@ -5,6 +5,7 @@ use Facade\FlareClient\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
 
+Route::any('products/search', 'productController@search')->name('products.search'); //any funciona para requisicao GET e POST
 Route::Resource('products', 'ProductController'); //->middleware('auth');
 
 /*
